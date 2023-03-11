@@ -17,9 +17,7 @@ function getRandomInt(min, max) { //https://developer.mozilla.org/en-US/docs/Web
 }
 
 function checkLength(string, maxLength) {
-  string = String(string);
-  maxLength = parseInt(maxLength);
-  return (string.length <= maxLength);
+  return string.length <= maxLength;
 }
 
 getRandomInt(1, 5);
@@ -34,7 +32,7 @@ const DESCRIPTION_LIST = ['Милые котята', 'Собачки', 'Ново
 let numberOfLastPost = 0;
 
 function getRandomDescription() {
-  return DESCRIPTION_LIST[getRandomInt(0, DESCRIPTION_LIST.length - 1)]
+  return DESCRIPTION_LIST[getRandomInt(0, DESCRIPTION_LIST.length - 1)];
 }
 
 function createPost() {
@@ -45,7 +43,9 @@ function createPost() {
     description: getRandomDescription(),
     likes: getRandomInt(15, 200),
     comments: getRandomInt(0, 200)
-  }
+  };
 }
 
 const posts = Array.from({length: MAX_COUNT_OF_USERS}, createPost);
+
+console.log(posts);
