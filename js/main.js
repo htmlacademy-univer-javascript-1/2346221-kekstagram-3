@@ -16,6 +16,5 @@ function checkLength(string, maxLength) {
     string = String(string);
     return (string.length <= maxLength);
 }
-
 getRandomInt(1, 5);
 checkLength('123', 5);
