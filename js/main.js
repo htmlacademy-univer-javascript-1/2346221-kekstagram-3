@@ -16,6 +16,3 @@ function checkLength(string, maxLength) {
     string = String(string);
     return (string.length <= maxLength);
 }
-
-console.log(getRandomInt(3, 5));
-console.log(checkLength('12345', 6));
