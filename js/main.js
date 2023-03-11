@@ -48,4 +48,4 @@ function createPost() {
 
 const posts = Array.from({length: MAX_COUNT_OF_USERS}, createPost);
 
-console.log(posts);
+(posts) => {}
