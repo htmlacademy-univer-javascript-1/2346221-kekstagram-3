@@ -14,6 +14,7 @@ function getRandomInt(min, max) { //https://developer.mozilla.org/en-US/docs/Web
 
 function checkLength(string, maxLength) {
   string = String(string);
+  maxLength = parseInt(maxLength);
   return (string.length <= maxLength);
 }
 
