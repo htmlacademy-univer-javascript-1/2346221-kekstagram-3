@@ -48,4 +48,8 @@ function createPost() {
 
 const posts = Array.from({length: MAX_COUNT_OF_USERS}, createPost);
 
-(posts) => {}
+function someFunction(arg) {
+  return arg;
+}
+
+someFunction(posts);
