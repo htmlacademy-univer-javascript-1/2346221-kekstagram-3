@@ -5,5 +5,3 @@ getRandomInt(1, 5);
 checkLength('123', 5);
 const posts = generatePosts();
 viewPosts(posts);
-
-console.log(posts);
