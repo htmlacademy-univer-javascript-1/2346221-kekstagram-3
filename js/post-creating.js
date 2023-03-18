@@ -1,5 +1,5 @@
-import { MAX_COUNT_OF_USERS, DESCRIPTION_LIST } from './data.js';
-import { getRandomInt } from './util.js';
+import {MAX_COUNT_OF_USERS, DESCRIPTION_LIST} from './data.js';
+import {getRandomInt} from './util.js';
 
 let numberOfLastPost = 0;
 
