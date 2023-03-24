@@ -1,12 +1,14 @@
 import {MAX_COUNT_OF_USERS, DESCRIPTION_LIST} from './data.js';
 import {getRandomInt} from './util.js';
 
+let lastPictureNumber = 0;
+
 function generatePictures(informationList) {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const pictureFragment = document.createDocumentFragment();
   const pictureDisplay = document.querySelector('.pictures');
 
-  for (let information of informationList) {
+  for (const information of informationList) {
     const pictureElement = pictureTemplate.cloneNode(true);
 
     const pictureImage = pictureElement.querySelector('.picture__img');
@@ -25,10 +27,10 @@ function generatePictures(informationList) {
 }
 
 function createPictureInformation() {
-  lastPostNumber++;
+  lastPictureNumber++;
   return {
-    id: lastPostNumber,
-    url: `photos/${lastPostNumber}.jpg`,
+    id: lastPictureNumber,
+    url: `photos/${lastPictureNumber}.jpg`,
     description: getRandomDescription(),
     likes: getRandomInt(15, 200),
     comments: getRandomInt(0, 200)
@@ -42,7 +44,5 @@ function getRandomDescription() {
 function generatePhotoInformationList() {
   return Array.from({length: MAX_COUNT_OF_USERS}, createPictureInformation);
 }
-
-let lastPostNumber = 0; //
 
 export {generatePhotoInformationList, generatePictures};
