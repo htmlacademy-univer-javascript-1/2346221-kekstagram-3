@@ -43,6 +43,6 @@ function generatePhotoInformationList() {
   return Array.from({length: MAX_COUNT_OF_USERS}, createPictureInformation);
 }
 
-let lastPostNumber = 0;
+let lastPostNumber = 0; //
 
 export {generatePhotoInformationList, generatePictures};
