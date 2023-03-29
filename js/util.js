@@ -16,8 +16,4 @@ function checkLength(string, maxLength) {
   return string.length <= maxLength;
 }
 
-function viewPosts(arg) {
-  return arg;
-}
-
-export {getRandomInt, checkLength, viewPosts};
+export {getRandomInt, checkLength};

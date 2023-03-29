@@ -1,7 +1,9 @@
-import {getRandomInt, checkLength, viewPosts} from './util.js';
-import {generatePosts} from './post-creating.js';
+import {getRandomInt, checkLength} from './util.js';
+import {generatePhotoInformationList, generatePictures} from './post-creating.js';
 
 getRandomInt(1, 5);
 checkLength('123', 5);
-const posts = generatePosts();
-viewPosts(posts);
+
+const pictureInformationList = generatePhotoInformationList();
+
+generatePictures(pictureInformationList);
