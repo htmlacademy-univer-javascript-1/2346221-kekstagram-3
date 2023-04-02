@@ -16,4 +16,13 @@ function checkLength(string, maxLength) {
   return string.length <= maxLength;
 }
 
-export {getRandomInt, checkLength};
+const isEscapeKey = (evt) => {
+  return evt.key === 'Escape';
+};
+
+function setPictureScale(percent) {
+  const picture = document.querySelector('.img-upload__preview img');
+  picture.style = `transform: scale(${percent/100})`;
+}
+
+export {getRandomInt, checkLength, isEscapeKey, setPictureScale};
