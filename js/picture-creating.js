@@ -20,6 +20,37 @@ function changeEffect(evt) {
   prewiew.classList.add(`effects__preview--${selectedEffect}`);
 }
 
+const onEditorEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeEditor();
+  }
+};
+
+const onControlSmallerButtonClick = () => {
+  let percent = valueField.value;
+  percent = parseInt(percent.slice(0, -1), 10) - 25;
+
+  if (percent >= 25) {
+    setPictureScale(percent);
+    valueField.value = String(percent) + '%';
+  } else {
+    valueField.value = '25%';
+  }
+};
+
+const onControlBiggerButtonClick = () => {
+  let percent = valueField.value;
+  percent = parseInt(percent.slice(0, -1), 10) + 25;
+
+  if (percent <= 100) {
+    setPictureScale(percent);
+    valueField.value = String(percent) + '%';
+  } else {
+    valueField.value = '100%';
+  }
+};
+
 function openEditor() {
   const uploadedImage =  document.querySelector('#upload-file').files[0];
   const fileReader = new FileReader();
@@ -53,37 +84,6 @@ function closeEditor() {
   scaleBiggerButton.removeEventListener('click', onControlBiggerButtonClick);
   document.removeEventListener('keydown', onEditorEscKeydown);
   pristine.reset();
-}
-
-const onEditorEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeEditor();
-  }
-};
-
-const onControlSmallerButtonClick = () => {
-  let percent = valueField.value;
-  percent = parseInt(percent.slice(0, -1)) - 25;
-
-  if (percent >= 25) {
-    setPictureScale(percent);
-    valueField.value = percent + '%';
-  } else {
-    valueField.value = '25%';
-  }
-}
-
-const onControlBiggerButtonClick = () => {
-  let percent = valueField.value;
-  percent = parseInt(percent.slice(0, -1)) + 25;
-
-  if (percent <= 100) {
-    setPictureScale(percent);
-    valueField.value = percent + '%';
-  } else {
-    valueField.value = '100%';
-  }
 }
 
 function generatePictures(informationList) {
