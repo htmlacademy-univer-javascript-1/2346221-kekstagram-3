@@ -18,7 +18,7 @@ function checkLength(string, maxLength) {
 
 function isEscapeKey(evt) {
   return evt.key === 'Escape';
-};
+}
 
 function setPictureScale(percent) {
   const picture = document.querySelector('.img-upload__preview img');

@@ -33,7 +33,7 @@ const onControlSmallerButtonClick = () => {
 
   if (percent >= 25) {
     setPictureScale(percent);
-    valueField.value = String(percent) + '%';
+    valueField.value = `${percent}%`;
   } else {
     valueField.value = '25%';
   }
@@ -45,7 +45,7 @@ const onControlBiggerButtonClick = () => {
 
   if (percent <= 100) {
     setPictureScale(percent);
-    valueField.value = String(percent) + '%';
+    valueField.value = `${percent}%`;
   } else {
     valueField.value = '100%';
   }
