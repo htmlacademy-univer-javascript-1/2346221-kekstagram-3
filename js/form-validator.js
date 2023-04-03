@@ -1,7 +1,12 @@
 const form = document.querySelector('#upload-select-image');
-const pristine = new Pristine(form);
+const pristine = new Pristine(form, {
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextTag: 'span',
+  errorTextClass: 'form__error'
+});
 
-function validateComment(value) {
+function validateCommentLength(value) {
   return value.length >= 20 && value.length <= 140;
 }
 
@@ -30,7 +35,7 @@ function validateHashTags(value) {
 
 pristine.addValidator(
   form.querySelector('.text__description'),
-  validateComment,
+  validateCommentLength,
   'От 20 до 140 символов'
 );
 
@@ -40,10 +45,12 @@ pristine.addValidator(
   'Неверный формат ХэшТегов'
 );
 
-form.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
-    console.log('Отправлять нельзя');
+form.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+
+  if (pristine.validate()) {
+    form.submit();
   }
 });
+
+export {pristine};

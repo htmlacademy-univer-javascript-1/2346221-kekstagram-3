@@ -1,8 +1,21 @@
 import {MAX_COUNT_OF_USERS, DESCRIPTION_LIST} from './data.js';
 import {getRandomInt, isEscapeKey, setPictureScale} from './util.js';
-import './form-validator.js';
+import {pristine} from './form-validator.js';
 
 let lastPictureNumber = 0;
+const body = document.querySelector('body');
+const form = body.querySelector('#upload-select-image');
+const editor = form.querySelector('.img-upload__overlay');
+const scaleSmallerButton = editor.querySelector('.scale__control--smaller');
+const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
+const prewiew = editor.querySelector('.img-upload__preview img');
+const effects = editor.querySelector('.effects__list');
+const valueField = editor.querySelector('.scale__control--value');
+const uploadButton = body.querySelector('#upload-file');
+const closeEditorButton = editor.querySelector('#upload-cancel');
+
+uploadButton.addEventListener('change', openEditor);
+closeEditorButton.addEventListener('click', closeEditor);
 
 function changeEffect(evt) {
   const selectedEffect = evt.target.value;
@@ -13,15 +26,9 @@ function changeEffect(evt) {
 }
 
 function openEditor() {
-  const body = document.querySelector('body');
-  const editor = document.querySelector('.img-upload__overlay');
   const uploadedImage =  document.querySelector('#upload-file').files[0];
-  const prewiew = editor.querySelector('.img-upload__preview img');
-  const scaleSmallerButton = editor.querySelector('.scale__control--smaller');
-  const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
   const fileReader = new FileReader();
 
-  const effects = editor.querySelector('.effects__list');
   effects.addEventListener('change', changeEffect);
 
   body.classList.add('modal-open');
@@ -38,14 +45,6 @@ function openEditor() {
 }
 
 function closeEditor() {
-  const body = document.querySelector('body');
-  const form = document.querySelector('#upload-select-image');
-  const editor = form.querySelector('.img-upload__overlay');
-  const scaleSmallerButton = editor.querySelector('.scale__control--smaller');
-  const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
-  const prewiew = editor.querySelector('.img-upload__preview img');
-  const effects = editor.querySelector('.effects__list');
-
   effects.removeEventListener('change', changeEffect);
 
   body.classList.remove('modal-open');
@@ -58,6 +57,7 @@ function closeEditor() {
   scaleSmallerButton.removeEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.removeEventListener('click', onControlBiggerButtonClick);
   document.removeEventListener('keydown', onEditorEscKeydown);
+  pristine.reset();
 }
 
 const onEditorEscKeydown = (evt) => {
@@ -68,8 +68,6 @@ const onEditorEscKeydown = (evt) => {
 };
 
 const onControlSmallerButtonClick = () => {
-  const valueField = document.querySelector('.scale__control--value');
-
   let percent = valueField.value;
   percent = parseInt(percent.slice(0, -1)) - 25;
 
@@ -82,7 +80,6 @@ const onControlSmallerButtonClick = () => {
 }
 
 const onControlBiggerButtonClick = () => {
-  const valueField = document.querySelector('.scale__control--value');
   let percent = valueField.value;
   percent = parseInt(percent.slice(0, -1)) + 25;
 
@@ -135,10 +132,5 @@ function getRandomDescription() {
 function generatePhotoInformationList() {
   return Array.from({length: MAX_COUNT_OF_USERS}, createPictureInformation);
 }
-
-const uploadButton = document.querySelector('#upload-file');
-uploadButton.addEventListener('change', openEditor);
-const closeEditorButton = document.querySelector('#upload-cancel');
-closeEditorButton.addEventListener('click', closeEditor);
 
 export {generatePhotoInformationList, generatePictures};

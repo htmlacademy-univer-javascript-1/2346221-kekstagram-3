@@ -1395,3 +1395,14 @@ main {
 .hidden {
   display: none;
 }
+
+
+/**
+ * Текст ошибки при валидации
+ */
+
+.form__error {
+  color: red;
+  display: block;
+  margin-top: 5px;
+}
