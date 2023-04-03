@@ -45,7 +45,7 @@ pristine.addValidator(
   'Неверный формат ХэшТегов'
 );
 
-form.addEventListener('submit', function (evt) {
+form.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   if (pristine.validate()) {

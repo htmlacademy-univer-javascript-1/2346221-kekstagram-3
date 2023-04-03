@@ -3,24 +3,9 @@ import {getRandomInt, isEscapeKey, setPictureScale} from './util.js';
 import {pristine} from './form-validator.js';
 
 let lastPictureNumber = 0;
-const body = document.querySelector('body');
-const form = body.querySelector('#upload-select-image');
-const editor = form.querySelector('.img-upload__overlay');
-const scaleSmallerButton = editor.querySelector('.scale__control--smaller');
-const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
-const prewiew = editor.querySelector('.img-upload__preview img');
-const effects = editor.querySelector('.effects__list');
-const valueField = editor.querySelector('.scale__control--value');
-const uploadButton = body.querySelector('#upload-file');
-const closeEditorButton = editor.querySelector('#upload-cancel');
-
-uploadButton.addEventListener('change', openEditor);
-closeEditorButton.addEventListener('click', closeEditor);
 
 function changeEffect(evt) {
   const selectedEffect = evt.target.value;
-  const prewiew = document.querySelector('.img-upload__preview img');
-
   prewiew.className = '';
   prewiew.classList.add(`effects__preview--${selectedEffect}`);
 }
@@ -132,5 +117,19 @@ function getRandomDescription() {
 function generatePhotoInformationList() {
   return Array.from({length: MAX_COUNT_OF_USERS}, createPictureInformation);
 }
+
+const body = document.querySelector('body');
+const form = body.querySelector('#upload-select-image');
+const editor = form.querySelector('.img-upload__overlay');
+const scaleSmallerButton = editor.querySelector('.scale__control--smaller');
+const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
+const prewiew = editor.querySelector('.img-upload__preview img');
+const effects = editor.querySelector('.effects__list');
+const valueField = editor.querySelector('.scale__control--value');
+const uploadButton = body.querySelector('#upload-file');
+const closeEditorButton = editor.querySelector('#upload-cancel');
+
+uploadButton.addEventListener('change', openEditor);
+closeEditorButton.addEventListener('click', closeEditor);
 
 export {generatePhotoInformationList, generatePictures};

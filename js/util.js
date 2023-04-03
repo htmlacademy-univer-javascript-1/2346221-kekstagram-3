@@ -16,7 +16,7 @@ function checkLength(string, maxLength) {
   return string.length <= maxLength;
 }
 
-const isEscapeKey = (evt) => {
+function isEscapeKey(evt) {
   return evt.key === 'Escape';
 };
 
