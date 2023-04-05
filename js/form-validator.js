@@ -1,3 +1,5 @@
+import {checkLegitLength} from './util.js';
+
 const form = document.querySelector('#upload-select-image');
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -7,7 +9,7 @@ const pristine = new Pristine(form, {
 });
 
 function validateCommentLength(value) {
-  return value.length >= 20 && value.length <= 140;
+  return checkLegitLength(value.length, 20, 140);
 }
 
 function validateHashTags(value) {
