@@ -1,4 +1,4 @@
-import {setPictureScale} from "./util.js";
+import {setPictureScale} from './util.js';
 
 const valueField = document.querySelector('.scale__control--value');
 

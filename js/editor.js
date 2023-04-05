@@ -1,6 +1,6 @@
 import {isEscapeKey, setPictureScale} from './util.js';
 import {pristine} from './form-validator.js';
-import {changeEffectToSelected, setEffect, createSlider, destroySlider} from './effects-setting.js'
+import {changeEffectToSelected, setEffect, createSlider, destroySlider} from './effects-setting.js';
 import {onControlBiggerButtonClick, onControlSmallerButtonClick} from './picture-scale.js';
 
 const body = document.querySelector('body');

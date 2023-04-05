@@ -1,4 +1,4 @@
-import {checkLegitLength} from "./util.js";
+import {checkLegitLength} from './util.js';
 
 const form = document.querySelector('#upload-select-image');
 const pristine = new Pristine(form, {

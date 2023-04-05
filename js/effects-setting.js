@@ -1,5 +1,4 @@
-/* global noUiSlider:readonly */
-import {EFFECTS} from "./data.js";
+import {EFFECTS} from './data.js';
 
 const prewiew = document.querySelector('.img-upload__preview img');
 const sliderBlock = document.querySelector('.img-upload__effect-level');
@@ -33,7 +32,7 @@ function createSlider() {
     const value = sliderElement.noUiSlider.get();
     sliderValue.value = value;
     const effect = EFFECTS[selectedEffect];
-    const filter = effect.filter + `(${value}${effect.size})`;
+    const filter = `${effect.filter}(${value}${effect.size})`;
     prewiew.style = filter;
   });
 
@@ -42,7 +41,7 @@ function createSlider() {
 
 function changeSliderEffect() {
   const effect = EFFECTS[selectedEffect];
-  if (effect.name == 'none') {
+  if (effect.name === 'none') {
     sliderValue.value = 0;
     prewiew.style = '';
     sliderBlock.classList.add('hidden');
