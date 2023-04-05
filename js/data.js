@@ -3,12 +3,13 @@ const DESCRIPTION_LIST = ['Милые котята', 'Собачки', 'Ново
 const EFFECTS = {
   none: {
     name: 'none',
+    filter: '',
     size: ''
   },
   chrome: {
     name: 'chrome',
     step: 0.1,
-    filter: 'filter: grayscale',
+    filter: 'grayscale',
     min: 0,
     max: 1,
     size: ''
@@ -16,7 +17,7 @@ const EFFECTS = {
   sepia: {
     name: 'sepia',
     step: 0.1,
-    filter: 'filter: sepia',
+    filter: 'sepia',
     min: 0,
     max: 1,
     size: ''
@@ -24,7 +25,7 @@ const EFFECTS = {
   marvin: {
     name: 'marvin',
     step: 1,
-    filter: 'filter: invert',
+    filter: 'invert',
     min: 0,
     max: 100,
     size: '%'
@@ -32,7 +33,7 @@ const EFFECTS = {
   phobos: {
     name: 'phobos',
     step: 0.1,
-    filter: 'filter: blur',
+    filter: 'blur',
     min: 0,
     max: 3,
     size: 'px'
@@ -40,7 +41,7 @@ const EFFECTS = {
   heat: {
     name: 'heat',
     step: 0.1,
-    filter: 'filter: brightness',
+    filter: 'brightness',
     min: 1,
     max: 3,
     size: ''

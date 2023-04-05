@@ -1,3 +1,9 @@
+const prewiew = document.querySelector('.img-upload__preview img');
+const styles = {
+  scale: '',
+  effect: ''
+};
+
 function getRandomInt(min, max) { // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
   if (min > max) {
     const swap = max;
@@ -20,9 +26,16 @@ function isEscapeKey(evt) {
   return evt.key === 'Escape';
 }
 
-function setPictureScale(percent) {
-  const picture = document.querySelector('.img-upload__preview img');
-  picture.style = `transform: scale(${percent/100})`;
+function setPictureScale(value) {
+  prewiew.style.transform = `scale(${value/100})`;
 }
 
-export {getRandomInt, checkLegitLength, isEscapeKey, setPictureScale};
+function setPictureEffect(effect, value = 0) {
+  if (effect.name === 'none') {
+    prewiew.style.filter = '';
+  } else {
+    prewiew.style.filter = `${effect.filter}(${value}${effect.size})`;
+  }
+}
+
+export {getRandomInt, checkLegitLength, isEscapeKey, setPictureScale, setPictureEffect};
