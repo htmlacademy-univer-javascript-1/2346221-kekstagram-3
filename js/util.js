@@ -12,8 +12,8 @@ function getRandomInt(min, max) { // https://developer.mozilla.org/en-US/docs/We
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function checkLength(string, maxLength) {
-  return string.length <= maxLength;
+function checkLegitLength(string, minLength, maxLength) {
+  return string >= minLength && string <= maxLength;
 }
 
 function isEscapeKey(evt) {
@@ -25,4 +25,4 @@ function setPictureScale(percent) {
   picture.style = `transform: scale(${percent/100})`;
 }
 
-export {getRandomInt, checkLength, isEscapeKey, setPictureScale};
+export {getRandomInt, checkLegitLength, isEscapeKey, setPictureScale};
