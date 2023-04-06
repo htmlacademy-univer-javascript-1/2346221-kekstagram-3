@@ -1,5 +1,6 @@
 import {MAX_COUNT_OF_USERS, DESCRIPTION_LIST} from './data.js';
 import {getRandomInt} from './util.js';
+import {onPictureClick} from './big-picture.js';
 
 let lastPictureNumber = 0;
 
@@ -22,8 +23,8 @@ function generatePictures(informationList) {
 
     pictureFragment.append(pictureElement);
   }
-
   pictureDisplay.append(pictureFragment);
+  pictureDisplay.addEventListener('click', onPictureClick);
 }
 
 function createPictureInformation() {
