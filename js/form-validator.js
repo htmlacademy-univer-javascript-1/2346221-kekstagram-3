@@ -1,4 +1,5 @@
 import {checkLegitLength} from './util.js';
+import {closeEditor} from './editor.js';
 
 const form = document.querySelector('#upload-select-image');
 const pristine = new Pristine(form, {
@@ -52,6 +53,7 @@ form.addEventListener('submit', (evt) => {
 
   if (pristine.validate()) {
     form.submit();
+    closeEditor();
   }
 });
 

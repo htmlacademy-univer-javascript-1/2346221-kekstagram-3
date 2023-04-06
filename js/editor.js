@@ -20,14 +20,9 @@ const onEditorEscKeydown = (evt) => {
 };
 
 function openEditor() {
-  closeEditorButton.addEventListener('click', closeEditor);
   const uploadedImage =  document.querySelector('#upload-file').files[0];
   const fileReader = new FileReader();
-  setEffect('none');
-  setPictureScale(100);
   createSlider();
-
-  effects.addEventListener('change', changeEffectToSelected);
 
   body.classList.add('modal-open');
   editor.classList.remove('hidden');
@@ -38,24 +33,28 @@ function openEditor() {
   fileReader.readAsDataURL(uploadedImage);
 
   document.addEventListener('keydown', onEditorEscKeydown);
+  effects.addEventListener('change', changeEffectToSelected);
   scaleSmallerButton.addEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.addEventListener('click', onControlBiggerButtonClick);
+  closeEditorButton.addEventListener('click', closeEditor);
 }
 
 function closeEditor() {
-  effects.removeEventListener('change', changeEffectToSelected);
   destroySlider();
+  setEffect('none');
+  setPictureScale(100);
 
   body.classList.remove('modal-open');
-  form.reset();
   editor.classList.add('hidden');
-
   prewiew.className = '';
 
+  document.removeEventListener('keydown', onEditorEscKeydown);
+  effects.removeEventListener('change', changeEffectToSelected);
   scaleSmallerButton.removeEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.removeEventListener('click', onControlBiggerButtonClick);
-  document.removeEventListener('keydown', onEditorEscKeydown);
+  closeEditorButton.removeEventListener('click', closeEditor);
+  form.reset();
   pristine.reset();
 }
 
-export {openEditor};
+export {openEditor, closeEditor};
