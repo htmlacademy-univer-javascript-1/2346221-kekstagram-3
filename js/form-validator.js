@@ -126,13 +126,15 @@ function unblockSubmitButton() {
   submitButton.textContent = 'Опубликовать';
 };
 
-function getInformation(formData, imageFromPrewiew) {
-  const information = {};
-  formData.forEach(function(value, key){
-      information[key] = value;
-  });
-  information.url = imageFromPrewiew;
-  return information;
+function getInformation(formData) {
+  return {
+    description: formData.get("description"),
+    hashtags: formData.get("hashtags"),
+    src: prewiew.src,
+    scale: prewiew.style.transform,
+    class: prewiew.classList[0],
+    filter: prewiew.style.filter
+  }
 }
 
 
@@ -145,7 +147,7 @@ function submitForm(onSuccess) {
       const info = new FormData(evt.target);
       sendData(
         () => {
-          addPicture(getInformation(info, prewiew.src));
+          addPicture(getInformation(info));
           onSuccess();
           showSuccessMessage();
           unblockSubmitButton();

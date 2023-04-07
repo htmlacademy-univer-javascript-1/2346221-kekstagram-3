@@ -16,6 +16,7 @@ const onBigPictureEscKeydown = (evt) => {
 
 function onPictureClick(evt) {
   const element = evt.target.closest('.picture');
+  console.log(element);
   if (element) {
     const image = element.querySelector('.picture__img');
     const likes = element.querySelector('.picture__likes').textContent;
