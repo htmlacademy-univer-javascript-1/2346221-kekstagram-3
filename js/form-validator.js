@@ -1,11 +1,10 @@
-import {checkLegitLength, isEscapeKey} from './util.js';
+import {checkLegitLength, convertDataToInformation} from './util.js';
 import {sendData} from './api.js';
 import {addPicture} from './picture-creating.js';
+import {showErrorMessage, showSuccessMessage} from './submit-message.js';
 
-const body = document.querySelector('body');
-const form = body.querySelector('#upload-select-image');
+const form = document.querySelector('#upload-select-image');
 const submitButton = form.querySelector('#upload-submit');
-const prewiew = document.querySelector('.img-upload__preview img');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -13,69 +12,6 @@ const pristine = new Pristine(form, {
   errorTextTag: 'span',
   errorTextClass: 'form__error'
 });
-
-const onSuccessMessageEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeSuccessMessage();
-  }
-};
-
-const onSuccessAnotherAreaClick = (evt) => {
-  if (evt.target == document.querySelector('.success')) {
-    closeSuccessMessage();
-  }
-};
-
-function closeSuccessMessage() {
-  body.querySelector('.success').remove();
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
-  document.removeEventListener('click', closeSuccessMessage);
-  document.removeEventListener('click', onSuccessAnotherAreaClick);
-}
-
-function showSuccessMessage() {
-  const successMessage = body.querySelector('#success').content.querySelector('.success').cloneNode(true);
-  const successButton = successMessage.querySelector('.success__button');
-
-  successButton.addEventListener('click', closeSuccessMessage);
-  document.addEventListener('keydown', onSuccessMessageEscKeydown);
-  document.addEventListener('click', onSuccessAnotherAreaClick);
-  body.append(successMessage);
-  successMessage.style.zIndex = '9999';
-}
-
-const onErrorMessageEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeErrorMessage();
-  }
-};
-
-const onErrorAnotherAreaClick = (evt) => {
-  if ((evt.target == document.querySelector('.error'))) {
-    closeErrorMessage();
-  }
-};
-
-function closeErrorMessage() {
-  body.querySelector('.error').remove();
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
-  document.removeEventListener('click', closeErrorMessage);
-  document.removeEventListener('click', onErrorAnotherAreaClick);
-}
-
-function showErrorMessage() {
-  const errorMessage = body.querySelector('#error').content.querySelector('.error').cloneNode(true);
-  const errorButton = errorMessage.querySelector('.error__button');
-  errorButton.textContent = 'Закрыть';
-
-  errorButton.addEventListener('click', closeErrorMessage);
-  document.addEventListener('keydown', onErrorMessageEscKeydown);
-  document.addEventListener('click', onErrorAnotherAreaClick);
-  body.append(errorMessage);
-  errorMessage.style.zIndex = '9999';
-}
 
 function validateCommentLength(value) {
   return checkLegitLength(value.length, 20, 140);
@@ -126,28 +62,16 @@ function unblockSubmitButton() {
   submitButton.textContent = 'Опубликовать';
 };
 
-function getInformation(formData) {
-  return {
-    description: formData.get("description"),
-    hashtags: formData.get("hashtags"),
-    src: prewiew.src,
-    scale: prewiew.style.transform,
-    class: prewiew.classList[0],
-    filter: prewiew.style.filter
-  }
-}
-
-
 function submitForm(onSuccess) {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
       blockSubmitButton();
-      const info = new FormData(evt.target);
+      const sentInformation = new FormData(evt.target);
       sendData(
         () => {
-          addPicture(getInformation(info));
+          addPicture(convertDataToInformation(sentInformation));
           onSuccess();
           showSuccessMessage();
           unblockSubmitButton();
@@ -156,10 +80,10 @@ function submitForm(onSuccess) {
           showErrorMessage();
           unblockSubmitButton();
         },
-        info,
+        sentInformation,
       );
     }
   });
 };
 
-export {pristine, submitForm, showErrorMessage};
+export {pristine, submitForm};

@@ -20,4 +20,21 @@ function isEscapeKey(evt) {
   return evt.key === 'Escape';
 }
 
-export {getRandomInt, checkLegitLength, isEscapeKey};
+function addPrewiewInformation(information) {
+  const prewiew = document.querySelector('.img-upload__preview img');
+  information.src = prewiew.src;
+  information.scale = prewiew.style.transform;
+  information.class = prewiew.classList[0];
+  information.filter = prewiew.style.filter;
+}
+
+function convertDataToInformation(formData) {
+  const information = {
+    description: formData.get("description"),
+    hashtags: formData.get("hashtags")
+  };
+  addPrewiewInformation(information);
+  return information
+}
+
+export {getRandomInt, checkLegitLength, isEscapeKey, convertDataToInformation};

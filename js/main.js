@@ -1,7 +1,8 @@
 import {drawPictures} from './picture-creating.js';
 import {loadPictures} from './api.js';
-import {submitForm, showErrorMessage} from './form-validator.js';
+import {submitForm} from './form-validator.js';
 import {closeEditor} from './editor.js';
+import {showErrorMessage} from './submit-message.js';
 
 loadPictures(
 (picuturesInfo) => {

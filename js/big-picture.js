@@ -16,7 +16,6 @@ const onBigPictureEscKeydown = (evt) => {
 
 function onPictureClick(evt) {
   const element = evt.target.closest('.picture');
-  console.log(element);
   if (element) {
     const image = element.querySelector('.picture__img');
     const likes = element.querySelector('.picture__likes').textContent;
@@ -24,7 +23,7 @@ function onPictureClick(evt) {
 
     bigPictureImg.src = image.src;
     bigPictureImg.style.transform = image.style.transform;
-    bigPictureImg.className = image.className;
+    bigPictureImg.classList = image.classList;
     bigPictureImg.style.filter = image.style.filter;
 
     bigPictureLikes.textContent = likes;

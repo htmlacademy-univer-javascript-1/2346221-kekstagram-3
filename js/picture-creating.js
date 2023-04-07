@@ -27,6 +27,10 @@ function drawPictures(informationList) {
 function addPicture(information) {
   const pictureElement = pictureTemplate.cloneNode(true);
   const pictureImage = pictureElement.querySelector('.picture__img');
+  const pictureComments = pictureElement.querySelector('.picture__comments');
+  const pictureLikes = pictureElement.querySelector('.picture__likes');
+  pictureComments.textContent = 0;
+  pictureLikes.textContent = 0;
 
   pictureImage.src = information.src;
   pictureImage.alt = information.description + ' ' + information.hashtags;
