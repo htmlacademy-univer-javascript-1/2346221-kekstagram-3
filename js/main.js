@@ -5,12 +5,12 @@ import {closeEditor} from './editor.js';
 import {showErrorMessage} from './submit-message.js';
 
 loadPictures(
-(picuturesInfo) => {
-  drawPictures(picuturesInfo);
-},
-() => {
-  showErrorMessage();
-}
+  (picuturesInfo) => {
+    drawPictures(picuturesInfo);
+  },
+  () => {
+    showErrorMessage();
+  }
 );
 
 submitForm(closeEditor);

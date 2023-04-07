@@ -1,8 +1,8 @@
 function loadPictures(onSuccess, onFail) {
-  fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
-  .then((response) => response.json())
-  .then((picturesInfo) => onSuccess(picturesInfo))
-  .catch(() => onFail());
+    fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
+    .then((response) => response.json())
+    .then((picturesInfo) => onSuccess(picturesInfo))
+    .catch(() => onFail());
 }
 
 function sendData(onSuccess, onFail, body) {
@@ -23,6 +23,6 @@ function sendData(onSuccess, onFail, body) {
     .catch(() => {
       onFail();
     });
-};
+}
 
 export {loadPictures, sendData};

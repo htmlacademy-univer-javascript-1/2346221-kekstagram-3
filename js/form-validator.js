@@ -55,12 +55,12 @@ pristine.addValidator(
 function blockSubmitButton() {
   submitButton.disabled = true;
   submitButton.textContent = 'Загружаю...';
-};
+}
 
 function unblockSubmitButton() {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
-};
+}
 
 function submitForm(onSuccess) {
   form.addEventListener('submit', (evt) => {
@@ -84,6 +84,6 @@ function submitForm(onSuccess) {
       );
     }
   });
-};
+}
 
 export {pristine, submitForm};
