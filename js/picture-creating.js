@@ -1,13 +1,11 @@
-import {MAX_COUNT_OF_USERS, DESCRIPTION_LIST} from './data.js';
-import {getRandomInt} from './util.js';
 import {onPictureClick} from './big-picture.js';
+import {EFFECTS} from './data.js';
 
-let lastPictureNumber = 0;
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureDisplay = document.querySelector('.pictures');
 
-function generatePictures(informationList) {
-  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+function drawPictures(informationList) {
   const pictureFragment = document.createDocumentFragment();
-  const pictureDisplay = document.querySelector('.pictures');
 
   for (const information of informationList) {
     const pictureElement = pictureTemplate.cloneNode(true);
@@ -27,23 +25,20 @@ function generatePictures(informationList) {
   pictureDisplay.addEventListener('click', onPictureClick);
 }
 
-function createPictureInformation() {
-  lastPictureNumber++;
-  return {
-    id: lastPictureNumber,
-    url: `photos/${lastPictureNumber}.jpg`,
-    description: getRandomDescription(),
-    likes: getRandomInt(15, 200),
-    comments: getRandomInt(0, 200)
-  };
+function addPicture(information) {
+  const pictureElement = pictureTemplate.cloneNode(true);
+  const pictureImage = pictureElement.querySelector('.picture__img');
+
+  const effect = EFFECTS[information.effect];
+  pictureImage.src = information.url;
+  pictureImage.alt = information.description + ' ' + information.hashtags;
+  const scaleValue = parseInt(information.scale.slice(0, -1), 10);
+  pictureImage.style.transform = `scale(${scaleValue/100})`
+  pictureImage.classList.add(`effects__preview--${information.effect}`);
+  if (information.effect !== 'none') {
+    pictureImage.style.filter = `${effect.filter}(${information['effect-level']}${effect.size})`;
+  }
+  pictureDisplay.append(pictureElement);
 }
 
-function getRandomDescription() {
-  return DESCRIPTION_LIST[getRandomInt(0, DESCRIPTION_LIST.length - 1)];
-}
-
-function generatePhotoInformationList() {
-  return Array.from({length: MAX_COUNT_OF_USERS}, createPictureInformation);
-}
-
-export {generatePhotoInformationList, generatePictures};
+export {drawPictures, addPicture};

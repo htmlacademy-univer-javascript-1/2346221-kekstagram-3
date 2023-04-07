@@ -22,6 +22,10 @@ function onPictureClick(evt) {
     const comments = element.querySelector('.picture__comments').textContent;
 
     bigPictureImg.src = image.src;
+    bigPictureImg.style.transform = image.style.transform;
+    bigPictureImg.className = image.className;
+    bigPictureImg.style.filter = image.style.filter;
+
     bigPictureLikes.textContent = likes;
     bigPictureComments.textContent = comments;
     autorComment.textContent = image.alt;

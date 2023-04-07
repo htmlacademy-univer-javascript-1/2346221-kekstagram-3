@@ -1,5 +1,4 @@
 import {EFFECTS} from './data.js';
-import {setPictureEffect} from './util.js';
 
 const prewiew = document.querySelector('.img-upload__preview img');
 const sliderBlock = document.querySelector('.img-upload__effect-level');
@@ -62,7 +61,7 @@ function destroySlider() {
   sliderElement.noUiSlider.destroy();
 }
 
-function changeEffectToSelected(evt) {
+function onEffectButtonClick(evt) {
   selectedEffect = evt.target.value;
   setEffect(selectedEffect);
 }
@@ -74,4 +73,12 @@ function setEffect(effect) {
   changeSliderEffect();
 }
 
-export {changeEffectToSelected, setEffect, createSlider, destroySlider};
+function setPictureEffect(effect, value = 0) {
+  if (effect.name === 'none') {
+    prewiew.style.filter = '';
+  } else {
+    prewiew.style.filter = `${effect.filter}(${value}${effect.size})`;
+  }
+}
+
+export {onEffectButtonClick, setEffect, createSlider, destroySlider};

@@ -1,11 +1,12 @@
-import {isEscapeKey, setPictureScale} from './util.js';
+import {isEscapeKey} from './util.js';
 import {pristine} from './form-validator.js';
-import {changeEffectToSelected, setEffect, createSlider, destroySlider} from './effects-setting.js';
-import {onControlBiggerButtonClick, onControlSmallerButtonClick} from './picture-scale.js';
+import {onEffectButtonClick, setEffect, createSlider, destroySlider} from './effects-setting.js';
+import {onControlBiggerButtonClick, onControlSmallerButtonClick, setPictureScale} from './picture-scale.js';
 
 const body = document.querySelector('body');
 const form = body.querySelector('#upload-select-image');
 const editor = form.querySelector('.img-upload__overlay');
+const uploadButton = form.querySelector('#upload-file');
 const scaleSmallerButton = editor.querySelector('.scale__control--smaller');
 const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
 const prewiew = editor.querySelector('.img-upload__preview img');
@@ -33,7 +34,7 @@ function openEditor() {
   fileReader.readAsDataURL(uploadedImage);
 
   document.addEventListener('keydown', onEditorEscKeydown);
-  effects.addEventListener('change', changeEffectToSelected);
+  effects.addEventListener('change', onEffectButtonClick);
   scaleSmallerButton.addEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.addEventListener('click', onControlBiggerButtonClick);
   closeEditorButton.addEventListener('click', closeEditor);
@@ -49,12 +50,14 @@ function closeEditor() {
   prewiew.className = '';
 
   document.removeEventListener('keydown', onEditorEscKeydown);
-  effects.removeEventListener('change', changeEffectToSelected);
+  effects.removeEventListener('change', onEffectButtonClick);
   scaleSmallerButton.removeEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.removeEventListener('click', onControlBiggerButtonClick);
   closeEditorButton.removeEventListener('click', closeEditor);
   form.reset();
   pristine.reset();
 }
+
+uploadButton.addEventListener('change', openEditor);
 
 export {openEditor, closeEditor};
