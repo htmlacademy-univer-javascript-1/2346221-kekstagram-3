@@ -33,7 +33,7 @@ function addPicture(information) {
   pictureLikes.textContent = 0;
 
   pictureImage.src = information.src;
-  pictureImage.alt = information.description + ' ' + information.hashtags;
+  pictureImage.alt = `${information.description} ${information.hashtags}`;
   pictureImage.style.transform = information.scale;
   pictureImage.classList.add(information.class);
   pictureImage.style.filter = information.filter;

@@ -1,4 +1,4 @@
-import {onEscKeydownHandler, onAnotherAreaClickHandler} from "./util.js";
+import {onEscKeydownHandler, onAnotherAreaClickHandler} from './util.js';
 
 const body = document.querySelector('body');
 const successMessageTemplate = body.querySelector('#success').content.querySelector('.success');
