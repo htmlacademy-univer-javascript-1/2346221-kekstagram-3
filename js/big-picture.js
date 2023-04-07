@@ -1,18 +1,13 @@
-import {isEscapeKey} from './util.js';
+import {onEscKeydownHandler, onAnotherAreaClickHandler} from './util.js';
 
+let bigPictureEscKeydownHandler;
+let anotherAreaClickHandler;
 const bigPictureSection = document.querySelector('.big-picture');
 const bigPictureImg = bigPictureSection.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPictureSection.querySelector('.likes-count');
 const bigPictureComments = bigPictureSection.querySelector('.comments-count');
 const bigPictureCloseButton = bigPictureSection.querySelector('.big-picture__cancel');
 const autorComment = bigPictureSection.querySelector('.social__caption');
-
-const onBigPictureEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeBigPicture();
-  }
-};
 
 function onPictureClick(evt) {
   const element = evt.target.closest('.picture');
@@ -32,14 +27,19 @@ function onPictureClick(evt) {
 
     bigPictureSection.classList.remove('hidden');
     bigPictureCloseButton.addEventListener('click', closeBigPicture);
-    document.addEventListener('keydown', onBigPictureEscKeydown);
+
+    bigPictureEscKeydownHandler = onEscKeydownHandler(document, closeBigPicture);
+    anotherAreaClickHandler = onAnotherAreaClickHandler(document, '.big-picture', closeBigPicture);
   }
 }
 
 function closeBigPicture() {
   bigPictureSection.classList.add('hidden');
-  bigPictureCloseButton.removeEventListener('click', onBigPictureEscKeydown);
-  document.removeEventListener('keydown', onBigPictureEscKeydown);
+  bigPictureCloseButton.removeEventListener('click', closeBigPicture);
+  document.removeEventListener('keydown', bigPictureEscKeydownHandler);
+  document.removeEventListener('click', anotherAreaClickHandler);
+  bigPictureEscKeydownHandler = undefined;
+  anotherAreaClickHandler = undefined;
 }
 
 export {onPictureClick};

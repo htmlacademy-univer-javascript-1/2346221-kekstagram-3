@@ -1,8 +1,9 @@
-import {isEscapeKey} from './util.js';
+import {onEscKeydownHandler} from './util.js';
 import {pristine} from './form-validator.js';
 import {onEffectButtonClick, setEffect, createSlider, destroySlider} from './effects-setting.js';
 import {onControlBiggerButtonClick, onControlSmallerButtonClick, setPictureScale} from './picture-scale.js';
 
+let editorEscKeydownHandler;
 const body = document.querySelector('body');
 const form = body.querySelector('#upload-select-image');
 const editor = form.querySelector('.img-upload__overlay');
@@ -12,13 +13,6 @@ const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
 const prewiew = editor.querySelector('.img-upload__preview img');
 const effects = editor.querySelector('.effects__list');
 const closeEditorButton = editor.querySelector('#upload-cancel');
-
-const onEditorEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeEditor();
-  }
-};
 
 function openEditor() {
   const uploadedImage =  document.querySelector('#upload-file').files[0];
@@ -33,7 +27,7 @@ function openEditor() {
   };
   fileReader.readAsDataURL(uploadedImage);
 
-  document.addEventListener('keydown', onEditorEscKeydown);
+  editorEscKeydownHandler = onEscKeydownHandler(document, closeEditor);
   effects.addEventListener('change', onEffectButtonClick);
   scaleSmallerButton.addEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.addEventListener('click', onControlBiggerButtonClick);
@@ -49,7 +43,8 @@ function closeEditor() {
   editor.classList.add('hidden');
   prewiew.className = '';
 
-  document.removeEventListener('keydown', onEditorEscKeydown);
+  document.removeEventListener('keydown', editorEscKeydownHandler);
+  editorEscKeydownHandler = undefined;
   effects.removeEventListener('change', onEffectButtonClick);
   scaleSmallerButton.removeEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.removeEventListener('click', onControlBiggerButtonClick);

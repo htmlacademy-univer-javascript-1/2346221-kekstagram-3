@@ -1,69 +1,56 @@
-import {isEscapeKey} from "./util.js";
+import {onEscKeydownHandler, onAnotherAreaClickHandler} from "./util.js";
 
 const body = document.querySelector('body');
-
-const onSuccessMessageEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeSuccessMessage();
-  }
-};
-
-const onSuccessAnotherAreaClick = (evt) => {
-  if (evt.target == document.querySelector('.success')) {
-    closeSuccessMessage();
-  }
-};
-
-const onErrorMessageEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeErrorMessage();
-  }
-};
-
-const onErrorAnotherAreaClick = (evt) => {
-  if ((evt.target == document.querySelector('.error'))) {
-    closeErrorMessage();
-  }
-};
-
-
-function closeSuccessMessage() {
-  body.querySelector('.success').remove();
-  document.removeEventListener('keydown', onSuccessMessageEscKeydown);
-  document.removeEventListener('click', closeSuccessMessage);
-  document.removeEventListener('click', onSuccessAnotherAreaClick);
-}
+const successMessageTemplate = body.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = body.querySelector('#error').content.querySelector('.error');
+let messageEscKeydownHandler;
+let anotherAreaClickHandler;
 
 function showSuccessMessage() {
-  const successMessage = body.querySelector('#success').content.querySelector('.success').cloneNode(true);
+  const successMessage = successMessageTemplate.cloneNode(true);
   const successButton = successMessage.querySelector('.success__button');
 
   successButton.addEventListener('click', closeSuccessMessage);
-  document.addEventListener('keydown', onSuccessMessageEscKeydown);
-  document.addEventListener('click', onSuccessAnotherAreaClick);
+  messageEscKeydownHandler = onEscKeydownHandler(document, closeSuccessMessage);
+  anotherAreaClickHandler = onAnotherAreaClickHandler(document, '.success', closeSuccessMessage);
   body.append(successMessage);
   successMessage.style.zIndex = '9999';
 }
 
-function closeErrorMessage() {
-  body.querySelector('.error').remove();
-  document.removeEventListener('keydown', onErrorMessageEscKeydown);
-  document.removeEventListener('click', closeErrorMessage);
-  document.removeEventListener('click', onErrorAnotherAreaClick);
-}
-
 function showErrorMessage() {
-  const errorMessage = body.querySelector('#error').content.querySelector('.error').cloneNode(true);
+  const errorMessage = errorMessageTemplate.cloneNode(true);
   const errorButton = errorMessage.querySelector('.error__button');
   errorButton.textContent = 'Закрыть';
 
   errorButton.addEventListener('click', closeErrorMessage);
-  document.addEventListener('keydown', onErrorMessageEscKeydown);
-  document.addEventListener('click', onErrorAnotherAreaClick);
+  messageEscKeydownHandler = onEscKeydownHandler(document, closeErrorMessage);
+  anotherAreaClickHandler = onAnotherAreaClickHandler(document, '.error', closeErrorMessage);
   body.append(errorMessage);
   errorMessage.style.zIndex = '9999';
+}
+
+function closeSuccessMessage() {
+  const successButton = body.querySelector('.success__button');
+
+  successButton.removeEventListener('click', closeSuccessMessage);
+  document.removeEventListener('click', anotherAreaClickHandler);
+  document.removeEventListener('keydown', messageEscKeydownHandler);
+  anotherAreaClickHandler = undefined;
+  messageEscKeydownHandler = undefined;
+
+  body.querySelector('.success').remove();
+}
+
+function closeErrorMessage() {
+  const errorButton = body.querySelector('.error__button');
+
+  errorButton.removeEventListener('click', closeErrorMessage);
+  document.removeEventListener('click', anotherAreaClickHandler);
+  document.removeEventListener('keydown', messageEscKeydownHandler);
+  messageEscKeydownHandler = undefined;
+  anotherAreaClickHandler = undefined;
+
+  body.querySelector('.error').remove();
 }
 
 export {showErrorMessage, showSuccessMessage};

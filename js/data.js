@@ -1,5 +1,3 @@
-const MAX_COUNT_OF_USERS = 25;
-const DESCRIPTION_LIST = ['Милые котята', 'Собачки', 'Новости', 'Веселое видео', 'Новая игра', 'Мем'];
 const EFFECTS = {
   none: {
     name: 'none',
@@ -48,4 +46,4 @@ const EFFECTS = {
   }
 };
 
-export {MAX_COUNT_OF_USERS, DESCRIPTION_LIST, EFFECTS};
+export {EFFECTS};

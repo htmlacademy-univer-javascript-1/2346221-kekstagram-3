@@ -72,9 +72,9 @@ function submitForm(onSuccess) {
       sendData(
         () => {
           addPicture(convertDataToInformation(sentInformation));
-          onSuccess();
           showSuccessMessage();
           unblockSubmitButton();
+          onSuccess();
         },
         () => {
           showErrorMessage();
