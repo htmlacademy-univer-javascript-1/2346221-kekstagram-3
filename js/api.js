@@ -1,13 +1,15 @@
+/*eslint arrow-body-style: ["error", "always"]*/
+
 function loadPictures(onSuccess, onFail) {
   fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
     .then((response) => {
-      return response.json()
+      return response.json();
     })
     .then((picturesInfo) => {
-      onSuccess(picturesInfo)
+      onSuccess(picturesInfo);
     })
     .catch(() => {
-      onFail()
+      onFail();
     });
 }
 
