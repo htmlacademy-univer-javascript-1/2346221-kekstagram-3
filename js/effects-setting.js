@@ -1,13 +1,13 @@
 import {EFFECTS} from './data.js';
 
-const prewiew = document.querySelector('.img-upload__preview img');
+const preview = document.querySelector('.img-upload__preview img');
 const sliderBlock = document.querySelector('.img-upload__effect-level');
-const sliderElement = sliderBlock.querySelector('.effect-level__slider');
+const slider = sliderBlock.querySelector('.effect-level__slider');
 const sliderValue = sliderBlock.querySelector('.effect-level__value');
 let selectedEffect = 'none';
 
 function createSlider() {
-  noUiSlider.create(sliderElement, {
+  noUiSlider.create(slider, {
     range: {
       min: 0,
       max: 1,
@@ -28,8 +28,8 @@ function createSlider() {
     },
   });
 
-  sliderElement.noUiSlider.on('update', () => {
-    const value = sliderElement.noUiSlider.get();
+  slider.noUiSlider.on('update', () => {
+    const value = slider.noUiSlider.get();
     sliderValue.value = value;
     const effect = EFFECTS[selectedEffect];
     setPictureEffect(effect, value);
@@ -46,7 +46,7 @@ function changeSliderEffect() {
     sliderBlock.classList.add('hidden');
   } else {
     sliderBlock.classList.remove('hidden');
-    sliderElement.noUiSlider.updateOptions({
+    slider.noUiSlider.updateOptions({
       range: {
         min: effect.min,
         max: effect.max
@@ -58,7 +58,7 @@ function changeSliderEffect() {
 }
 
 function destroySlider() {
-  sliderElement.noUiSlider.destroy();
+  slider.noUiSlider.destroy();
 }
 
 function onEffectButtonClick(evt) {
@@ -68,16 +68,16 @@ function onEffectButtonClick(evt) {
 
 function setEffect(effect) {
   selectedEffect = effect;
-  prewiew.className = '';
-  prewiew.classList.add(`effects__preview--${selectedEffect}`);
+  preview.className = '';
+  preview.classList.add(`effects__preview--${selectedEffect}`);
   changeSliderEffect();
 }
 
 function setPictureEffect(effect, value = 0) {
   if (effect.name === 'none') {
-    prewiew.style.filter = '';
+    preview.style.filter = '';
   } else {
-    prewiew.style.filter = `${effect.filter}(${value}${effect.size})`;
+    preview.style.filter = `${effect.filter}(${value}${effect.size})`;
   }
 }
 

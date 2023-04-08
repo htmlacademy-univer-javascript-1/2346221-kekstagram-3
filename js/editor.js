@@ -1,16 +1,16 @@
-import {onEscKeydownHandler} from './util.js';
+import {escKeydownHandler} from './util.js';
 import {pristine} from './form-validator.js';
 import {onEffectButtonClick, setEffect, createSlider, destroySlider} from './effects-setting.js';
 import {onControlBiggerButtonClick, onControlSmallerButtonClick, setPictureScale} from './picture-scale.js';
 
-let editorEscKeydownHandler;
+let onEditorEscKeydown;
 const body = document.querySelector('body');
 const form = body.querySelector('#upload-select-image');
 const editor = form.querySelector('.img-upload__overlay');
 const uploadButton = form.querySelector('#upload-file');
 const scaleSmallerButton = editor.querySelector('.scale__control--smaller');
 const scaleBiggerButton = editor.querySelector('.scale__control--bigger');
-const prewiew = editor.querySelector('.img-upload__preview img');
+const preview = editor.querySelector('.img-upload__preview img');
 const effects = editor.querySelector('.effects__list');
 const closeEditorButton = editor.querySelector('#upload-cancel');
 
@@ -23,11 +23,11 @@ function openEditor() {
   editor.classList.remove('hidden');
 
   fileReader.onloadend = function() {
-    prewiew.src = fileReader.result;
+    preview.src = fileReader.result;
   };
   fileReader.readAsDataURL(uploadedImage);
 
-  editorEscKeydownHandler = onEscKeydownHandler(document, closeEditor);
+  onEditorEscKeydown = escKeydownHandler(document, closeEditor);
   effects.addEventListener('change', onEffectButtonClick);
   scaleSmallerButton.addEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.addEventListener('click', onControlBiggerButtonClick);
@@ -41,10 +41,9 @@ function closeEditor() {
 
   body.classList.remove('modal-open');
   editor.classList.add('hidden');
-  prewiew.className = '';
+  preview.className = '';
 
-  document.removeEventListener('keydown', editorEscKeydownHandler);
-  editorEscKeydownHandler = undefined;
+  document.removeEventListener('keydown', onEditorEscKeydown);
   effects.removeEventListener('change', onEffectButtonClick);
   scaleSmallerButton.removeEventListener('click', onControlSmallerButtonClick);
   scaleBiggerButton.removeEventListener('click', onControlBiggerButtonClick);

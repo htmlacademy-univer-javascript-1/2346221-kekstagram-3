@@ -18,7 +18,9 @@ function validateCommentLength(value) {
 }
 
 function validateHashTags(value) {
-  if (value.length === 0) { return true; }
+  if (value.length === 0) {
+    return true;
+  }
   const hashTags = value.split(' ');
 
   const regex = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;

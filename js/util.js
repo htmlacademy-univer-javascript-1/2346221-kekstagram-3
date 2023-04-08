@@ -6,7 +6,7 @@ function isEscapeKey(evt) {
   return evt.key === 'Escape';
 }
 
-function onEscKeydownHandler(element, onKeydownFunction) {
+function escKeydownHandler(element, onKeydownFunction) {
   function eventHandler(evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
@@ -18,7 +18,7 @@ function onEscKeydownHandler(element, onKeydownFunction) {
   return eventHandler;
 }
 
-function onAnotherAreaClickHandler(element, selector, onClickFunction) {
+function anotherAreaClickHandler(element, selector, onClickFunction) {
   function eventHandler(evt) {
     if (evt.target === document.querySelector(selector)) {
       onClickFunction();
@@ -46,4 +46,4 @@ function convertDataToInformation(formData) {
   return information;
 }
 
-export {checkLegitLength, convertDataToInformation, onEscKeydownHandler, onAnotherAreaClickHandler};
+export {checkLegitLength, convertDataToInformation, escKeydownHandler, anotherAreaClickHandler};
