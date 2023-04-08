@@ -1,5 +1,4 @@
-import {setPictureScale} from './util.js';
-
+const preview = document.querySelector('.img-upload__preview img');
 const valueField = document.querySelector('.scale__control--value');
 
 const onControlSmallerButtonClick = () => {
@@ -26,4 +25,8 @@ const onControlBiggerButtonClick = () => {
   }
 };
 
-export {onControlBiggerButtonClick, onControlSmallerButtonClick};
+function setPictureScale(value) {
+  preview.style.transform = `scale(${value/100})`;
+}
+
+export {onControlBiggerButtonClick, onControlSmallerButtonClick, setPictureScale};

@@ -1,8 +1,16 @@
-import {generatePhotoInformationList, generatePictures} from './picture-creating.js';
-import {openEditor} from './editor.js';
+import {drawPictures} from './picture-creating.js';
+import {loadPictures} from './api.js';
+import {submitForm} from './form-validator.js';
+import {closeEditor} from './editor.js';
+import {showErrorMessage} from './submit-message.js';
 
-const uploadButton = document.querySelector('#upload-file');
-uploadButton.addEventListener('change', openEditor);
+loadPictures(
+  (picuturesInfo) => {
+    drawPictures(picuturesInfo);
+  },
+  () => {
+    showErrorMessage();
+  }
+);
 
-const pictureInformationList = generatePhotoInformationList();
-generatePictures(pictureInformationList);
+submitForm(closeEditor);

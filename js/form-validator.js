@@ -1,6 +1,11 @@
-import {checkLegitLength} from './util.js';
+import {checkLegitLength, convertDataToInformation} from './util.js';
+import {sendData} from './api.js';
+import {addPicture} from './picture-creating.js';
+import {showErrorMessage, showSuccessMessage} from './submit-message.js';
 
 const form = document.querySelector('#upload-select-image');
+const submitButton = form.querySelector('#upload-submit');
+
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
@@ -13,7 +18,9 @@ function validateCommentLength(value) {
 }
 
 function validateHashTags(value) {
-  if (value.length === 0) { return true; }
+  if (value.length === 0) {
+    return true;
+  }
   const hashTags = value.split(' ');
 
   const regex = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
@@ -47,12 +54,38 @@ pristine.addValidator(
   'Неверный формат ХэшТегов'
 );
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+function blockSubmitButton() {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Загружаю...';
+}
 
-  if (pristine.validate()) {
-    form.submit();
-  }
-});
+function unblockSubmitButton() {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+}
 
-export {pristine};
+function submitForm(onSuccess) {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      const sentInformation = new FormData(evt.target);
+      sendData(
+        () => {
+          addPicture(convertDataToInformation(sentInformation));
+          showSuccessMessage();
+          unblockSubmitButton();
+          onSuccess();
+        },
+        () => {
+          showErrorMessage();
+          unblockSubmitButton();
+        },
+        sentInformation,
+      );
+    }
+  });
+}
+
+export {pristine, submitForm};

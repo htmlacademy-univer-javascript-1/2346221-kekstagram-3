@@ -1,48 +1,43 @@
-import {MAX_COUNT_OF_USERS, DESCRIPTION_LIST} from './data.js';
-import {getRandomInt} from './util.js';
+import {onPictureClick} from './big-picture.js';
 
-let lastPictureNumber = 0;
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureDisplay = document.querySelector('.pictures');
 
-function generatePictures(informationList) {
-  const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+function drawPictures(informationList) {
   const pictureFragment = document.createDocumentFragment();
-  const pictureDisplay = document.querySelector('.pictures');
 
   for (const information of informationList) {
-    const pictureElement = pictureTemplate.cloneNode(true);
+    const picture = pictureTemplate.cloneNode(true);
 
-    const pictureImage = pictureElement.querySelector('.picture__img');
-    const pictureComments = pictureElement.querySelector('.picture__comments');
-    const pictureLikes = pictureElement.querySelector('.picture__likes');
+    const pictureImage = picture.querySelector('.picture__img');
+    const pictureComments = picture.querySelector('.picture__comments');
+    const pictureLikes = picture.querySelector('.picture__likes');
 
     pictureImage.src = information.url;
     pictureImage.alt = information.description;
     pictureComments.textContent = information.comments;
     pictureLikes.textContent = information.likes;
 
-    pictureFragment.append(pictureElement);
+    pictureFragment.append(picture);
   }
-
   pictureDisplay.append(pictureFragment);
+  pictureDisplay.addEventListener('click', onPictureClick);
 }
 
-function createPictureInformation() {
-  lastPictureNumber++;
-  return {
-    id: lastPictureNumber,
-    url: `photos/${lastPictureNumber}.jpg`,
-    description: getRandomDescription(),
-    likes: getRandomInt(15, 200),
-    comments: getRandomInt(0, 200)
-  };
+function addPicture(information) {
+  const picture = pictureTemplate.cloneNode(true);
+  const pictureImage = picture.querySelector('.picture__img');
+  const pictureComments = picture.querySelector('.picture__comments');
+  const pictureLikes = picture.querySelector('.picture__likes');
+  pictureComments.textContent = 0;
+  pictureLikes.textContent = 0;
+
+  pictureImage.src = information.src;
+  pictureImage.alt = `${information.description} ${information.hashtags}`;
+  pictureImage.style.transform = information.scale;
+  pictureImage.classList.add(information.class);
+  pictureImage.style.filter = information.filter;
+  pictureDisplay.append(picture);
 }
 
-function getRandomDescription() {
-  return DESCRIPTION_LIST[getRandomInt(0, DESCRIPTION_LIST.length - 1)];
-}
-
-function generatePhotoInformationList() {
-  return Array.from({length: MAX_COUNT_OF_USERS}, createPictureInformation);
-}
-
-export {generatePhotoInformationList, generatePictures};
+export {drawPictures, addPicture};
